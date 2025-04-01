@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>multipart-related.js example</title>
+    <style>
+        body {
+            width: 100%;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 50px;
+        }
+
+        label, textarea {
+            display: block;
+            width: 100%;
+        }
+
+        textarea {
+            min-height: 300px;
+            height: 500px;
+            resize: vertical;
+        }
+
+        form > div {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+    
+    <form id="form">
+
+        <div>
+            <label for="content">Markdown content :</label>
+            <textarea name="content" id="content">
+# Insurgens iniectam solvere tenent auctor versabat Quirini
+
+## Nec incerti ille et infantem iamque operis
+
+Lorem markdownum flos vulnusque quos inpatiens triplici, usus nervo, vires
+amplexa tubicen inferius. Undas nec potentem vertice querno.
+
+![image1](image1.jpg)
+
+Silvis quare mea viscera magis, fefellimus matrem admissum. Torquetur mox caput hominum victos;
+ambit apta. Bacchus adspexerit: lignoque: **ore lucum** tam aegro instabilis
+sive, liquefactis, ponto qua. Valens nec undique solio: bene: vota inprobat
+Styga inveniunt imagine donec: ferre. Certe sustulit in oculos Neptunus lebetes et
+defendere vitta, et servo.
+            </textarea>
+        </div>
+
+        <div>
+            <label for="images">Images :</label>
+            <input type="file" name="images" multiple accept="image/*" />
+        </div>
+
+        <button>Submit</button>
+
+    </form>
+
+    <p id="result" hidden>Inspect form result in console</p>
+
+    <script type="module">
+        import {MultipartData} from "./src/index.js"
+
+        document.getElementById("form")
+            .addEventListener("submit", e => {
+                let result = document.getElementById("result")
+
+                e.preventDefault()
+                let data = new FormData(e.target)
+
+                let parts = [
+                    new Blob([data.get("content")], {type: "text/markdown"})
+                ]
+
+                for(let file of data.getAll("images")){
+                    parts.push(file)
+                }
+
+                let body = new MultipartData(parts)
+
+                console.log(body)
+
+                fetch("mock-upload", {
+                    method: "POST",
+                    body: body
+                })
+
+                result.hidden = false
+                
+            })
+    </script>
+
+</body>
+</html>
