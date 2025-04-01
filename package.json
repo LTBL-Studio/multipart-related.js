@@ -1,0 +1,28 @@
+{
+  "name": "multipart-related",
+  "version": "1.0.0",
+  "description": "multipart/related building",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LTBL-Studio/multipart-related.js.git"
+  },
+  "keywords": [
+    "multipart",
+    "browser",
+    "esmodule"
+  ],
+  "author": "PlanValley <contact@plan-valley.com>",
+  "contributors": [
+    "Baptiste Saclier <baptiste@plan-valley.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LTBL-Studio/multipart-related.js/issues"
+  },
+  "homepage": "https://github.com/LTBL-Studio/multipart-related.js#readme"
+}
